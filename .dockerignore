@@ -1,0 +1,18 @@
+﻿# Keep the image minimal and avoid shipping local caches, secrets, and VCS metadata.
+.git
+.github
+.idea
+.venv
+.mypy_cache
+.pytest_cache
+.pytest-temp
+.ruff_cache
+__pycache__
+*.py[codz]
+*.log
+.env
+google_sa.json
+docs
+logs
+scripts
+tests
