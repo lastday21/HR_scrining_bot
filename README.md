@@ -2,6 +2,11 @@
 
 Telegram-бот для первичного скрининга кандидатов на AI-first разработку.
 
+Дополнительные материалы:
+- [Пояснение по выбору критериев и вопросов](./questions_criteria%20_explanations.md)
+- [ScreenCast](./ScreenCast.md)
+- [Google sheet таблица](https://docs.google.com/spreadsheets/d/1b7hIjkxhbzw629-dlOmS4k-qZ6EQQ-yHZW0lQpuTWII/edit?gid=0#gid=0)
+
 Бот:
 - проводит кандидата по анкете: ФИО -> контакты -> 7 вопросов -> ссылка на проект
 - хранит черновик анкеты в Redis
@@ -58,6 +63,11 @@ HOT_CANDIDATE_THRESHOLD=70
 GOOGLE_SERVICE_ACCOUNT_JSON_PATH=google_sa.json
 ```
 
+Важно:
+- файл `google_sa.json` уже добавлен в [.gitignore](./.gitignore)
+- не коммить этот файл в репозиторий
+- в Docker он монтируется в контейнер как volume, а не вшивается в образ
+
 ### 3. Собери и запусти через Docker
 
 Требуется установленный Docker.
@@ -80,7 +90,11 @@ docker compose down
 docker compose logs -f bot
 ```
 
-
+Что делает `docker-compose.yml`:
+- поднимает контейнер с ботом
+- поднимает Redis рядом
+- внутри контейнера переопределяет `REDIS_URL` на `redis://redis:6379/0`
+- монтирует `google_sa.json` в контейнер read-only
 
 ## Админ-команды
 
